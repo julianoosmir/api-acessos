@@ -22,11 +22,13 @@ public class UserController {
     private UserService userService;
 
     @GetMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<User> testGet() {
         return this.userService.findAll();
     }
 
     @GetMapping("/todos")
+    @PreAuthorize("hasAuthority('ADMIN')")
     public List<UserResponseDto> dtoGet() {
         return this.userService.findAllDtos();
     }
