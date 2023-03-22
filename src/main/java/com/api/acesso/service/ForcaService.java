@@ -15,13 +15,20 @@ public class ForcaService {
     @Autowired
     private ForcaRepository forcaRepository;
 
-    public Forca save(Forca forca) {
+    public Forca save(Forca forca) throws Exception {
+        this.limitWord(forca);
         return this.forcaRepository.save(forca);
+    }
+
+    public void limitWord(Forca forca) throws Exception {
+        String words[] = forca.getPalavra().split("\\s");
+        if (words.length > 1) {
+            throw new Exception("cadastre apenas uma palavra");
+        }
     }
 
     public Forca forcaById(Long id) {
         Forca forca = this.forcaRepository.getById(id);
-
         return forca;
     }
 

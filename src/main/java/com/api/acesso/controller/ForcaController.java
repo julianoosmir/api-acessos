@@ -39,13 +39,13 @@ public class ForcaController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Forca salvar(@RequestBody Forca forca) {
+    public Forca salvar(@RequestBody Forca forca) throws Exception {
         return this.forcaService.save(forca);
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public Forca alterar(@RequestBody Forca forca) {
+    public Forca alterar(@RequestBody Forca forca) throws Exception {
         return this.forcaService.save(forca);
     }
 

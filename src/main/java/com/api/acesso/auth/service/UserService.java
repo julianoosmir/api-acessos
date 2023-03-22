@@ -19,6 +19,7 @@ import com.api.acesso.auth.repository.UserRepository;
 import com.api.acesso.config.ModalMapperConfig;
 import com.api.acesso.config.jwt.JwtRequest;
 import com.api.acesso.config.jwt.JwtTokenUtil;
+import com.api.acesso.dto.AuthDto;
 import com.api.acesso.dto.UserDto;
 import com.api.acesso.dto.UserResponseDto;
 import java.util.ArrayList;
@@ -35,19 +36,23 @@ public class UserService implements UserDetailsService {
     private UserRepository repository;
 
     @Autowired
-    private  ModelMapper mapper;
+    private ModelMapper mapper;
 
     @Autowired
     public AuthenticationManager authenticationManager;
-    
+
     @Autowired
     private RoleService roleService;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    public User save(User User) {
-        return repository.save(User);
+    public User save(User user) {
+        return repository.save(user);
+    }
+
+    public void delete(Long id) {
+        this.repository.deleteById(id);
     }
 
     public User salvar(UserDto userdto) {
@@ -68,28 +73,33 @@ public class UserService implements UserDetailsService {
         return repository.findAll();
     }
 
-    public List<UserResponseDto> findAllDtos(){
-      List<UserResponseDto> userdtos = new ArrayList<>();
-      this.findAll().forEach(user->{
-          UserResponseDto dto = new UserResponseDto(user.getId(),user.getNome(),user.getUsername(),this.getNamesRoles(user.getRoles()));
-          userdtos.add(dto);
-      });
-      return userdtos;
+    public List<UserResponseDto> findAllDtos() {
+        List<UserResponseDto> userdtos = new ArrayList<>();
+        this.findAll().forEach(user -> {
+            UserResponseDto dto = new UserResponseDto(user.getId(), user.getNome(), user.getUsername(),
+                    this.getNamesRoles(user.getRoles()));
+            userdtos.add(dto);
+        });
+        return userdtos;
     };
-    
-    private String getNamesRoles(List<Role> roles){
+
+    private String getNamesRoles(List<Role> roles) {
         List<String> nomesRoles = roles.stream().map(Role::getName).collect(Collectors.toList());
         return nomesRoles.stream().map(Object::toString)
-                        .collect(Collectors.joining(", "));
+                .collect(Collectors.joining(", "));
     }
-    
-    private String enconderPassword(String senha){
+
+    private String enconderPassword(String senha) {
         return new BCryptPasswordEncoder().encode(senha);
     }
-    
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return repository.findByUsername(username);
+    }
+
+    private String getRole(Long id) {
+        return this.repository.findRoleByUserId(id);
     }
 
     public ResponseEntity<?> signin(JwtRequest authenticationRequest) {
@@ -101,7 +111,9 @@ public class UserService implements UserDetailsService {
 
             final String token = jwtTokenUtil.generateToken(userDetails);
 
-            return ResponseEntity.ok(token);
+            final AuthDto authDto = new AuthDto(getRole(userDetails.getId()), true, token);
+
+            return ResponseEntity.ok(authDto);
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.ok(e.getMessage());
