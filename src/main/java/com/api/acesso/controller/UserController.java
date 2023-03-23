@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,8 +31,14 @@ public class UserController {
         return this.userService.findAll();
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
+    public User testGetById(@PathVariable Long id) {
+        return this.userService.findById(id);
+    }
+
+    @GetMapping("/todos")
+    @PreAuthorize("hasAuthority('ADMIN') or hasAuthority('USER')")
     public List<UserResponseDto> dtoGet() {
         return this.userService.findAllDtos();
     }
@@ -40,6 +47,12 @@ public class UserController {
     @PreAuthorize("hasAuthority('ADMIN')")
     public User testPost(@RequestBody UserDto userdto) {
         return this.userService.salvar(userdto);
+    }
+
+    @PutMapping
+    @PreAuthorize("hasAuthority('ADMIN')")
+    public User testPost(@RequestBody User user) {
+        return this.userService.save(user);
     }
 
     @DeleteMapping("/{id}")

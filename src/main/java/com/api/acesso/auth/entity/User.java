@@ -34,13 +34,11 @@ public class User implements UserDetails {
 
     private Boolean ativo;
 
-    private String token;
-
     /**
      *
      */
     @ManyToMany(fetch = FetchType.EAGER)
-	@Fetch(FetchMode.JOIN)
+    @Fetch(FetchMode.JOIN)
     private List<Role> roles;
 
     public Long getId() {
@@ -97,14 +95,6 @@ public class User implements UserDetails {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     @Override
