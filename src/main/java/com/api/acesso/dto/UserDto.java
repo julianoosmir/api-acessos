@@ -2,6 +2,13 @@ package com.api.acesso.dto;
 
 import java.util.Objects;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class UserDto {
 
     private Long Id;
@@ -16,60 +23,7 @@ public class UserDto {
 
     private Boolean ativo;
 
-    private String perfil;
-
-    public UserDto() {
-    }
-
-    public UserDto(Long Id, String nome, String username, String email, String senha, Boolean ativo, String perfil) {
-        this.Id = Id;
-        this.nome = nome;
-        this.username = username;
-        this.email = email;
-        this.senha = senha;
-        this.ativo = ativo;
-        this.perfil = perfil;
-    }
-
-    public Long getId() {
-        return this.Id;
-    }
-
-    public void setId(Long Id) {
-        this.Id = Id;
-    }
-
-    public String getNome() {
-        return this.nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getUsername() {
-        return this.username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getEmail() {
-        return this.email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return this.senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
+    private Long perfil;
 
     public Boolean isAtivo() {
         return this.ativo;
@@ -81,49 +35,6 @@ public class UserDto {
 
     public void setAtivo(Boolean ativo) {
         this.ativo = ativo;
-    }
-
-    public String getPerfil() {
-        return this.perfil;
-    }
-
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
-    }
-
-    public UserDto Id(Long Id) {
-        setId(Id);
-        return this;
-    }
-
-    public UserDto nome(String nome) {
-        setNome(nome);
-        return this;
-    }
-
-    public UserDto username(String username) {
-        setUsername(username);
-        return this;
-    }
-
-    public UserDto email(String email) {
-        setEmail(email);
-        return this;
-    }
-
-    public UserDto senha(String senha) {
-        setSenha(senha);
-        return this;
-    }
-
-    public UserDto ativo(Boolean ativo) {
-        setAtivo(ativo);
-        return this;
-    }
-
-    public UserDto perfil(String perfil) {
-        setPerfil(perfil);
-        return this;
     }
 
     @Override
@@ -156,6 +67,7 @@ public class UserDto {
                 ", ativo='" + isAtivo() + "'" +
                 ", perfil='" + getPerfil() + "'" +
                 "}";
+
     }
 
 }

@@ -58,9 +58,7 @@ public class UserService implements UserDetailsService {
     public User salvar(UserDto userdto) {
         userdto.setSenha(this.enconderPassword(userdto.getSenha()));
         User user = this.mapper.map(userdto, User.class);
-        Role role = new Role();
-        role.setName(userdto.getPerfil());
-        this.roleService.save(role);
+        Role role = roleService.findById(userdto.getPerfil());
         user.setRoles(Arrays.asList(role));
         return repository.save(user);
     }
