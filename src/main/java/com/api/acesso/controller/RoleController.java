@@ -19,6 +19,7 @@ import com.api.acesso.auth.service.RoleService;
 @RestController
 @RequestMapping("/role")
 public class RoleController {
+
     @Autowired
     private RoleService roleService;
 

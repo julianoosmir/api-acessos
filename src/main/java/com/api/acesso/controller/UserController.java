@@ -45,19 +45,19 @@ public class UserController {
 
     @PostMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public User testPost(@RequestBody UserDto userdto) {
+    public User userPost(@RequestBody UserDto userdto) {
         return this.userService.salvar(userdto);
     }
 
     @PutMapping
     @PreAuthorize("hasAuthority('ADMIN')")
-    public User testPost(@RequestBody User user) {
-        return this.userService.save(user);
+    public User userPut(@RequestBody UserDto user) {
+        return this.userService.salvar(user);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasAuthority('ADMIN')")
-    public void testDelete(@PathVariable Long id) {
+    public void userDelete(@PathVariable Long id) {
         this.userService.delete(id);
     }
 

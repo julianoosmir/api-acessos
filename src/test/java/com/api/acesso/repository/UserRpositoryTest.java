@@ -46,9 +46,9 @@ public class UserRpositoryTest {
         user.setSenha(new BCryptPasswordEncoder().encode("123456"));
         user.setUsername("julianoosmir");
         user.setRoles(Arrays.asList(this.roleAdmin));
-
         this.user = this.repository.save(user);
         Assertions.assertNotNull(this.user);
+
     }
 
 }
