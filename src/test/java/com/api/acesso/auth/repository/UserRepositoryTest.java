@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Profile;
 
@@ -32,9 +34,14 @@ public class UserRepositoryTest {
     }
 
     @Test
-    public void save() {
+    public void getAll() {
         List<User> users = this.repository.findAll();
-        Assertions.assertEquals(users.size(), 2);
+        Assertions.assertEquals(users.size(), 1);
     }
 
+    @Test
+    public void find(){
+        String name = this.repository.findRoleByUserId(2l);
+        Assertions.assertEquals(name,"jorge");
+    }
 }
