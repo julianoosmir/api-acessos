@@ -56,18 +56,4 @@ public class UserDto {
         return Objects.hash(Id, nome, username, email, senha, ativo, perfil);
     }
 
-    @Override
-    public String toString() {
-        return "{" +
-                " Id='" + getId() + "'" +
-                ", nome='" + getNome() + "'" +
-                ", username='" + getUsername() + "'" +
-                ", email='" + getEmail() + "'" +
-                ", senha='" + getSenha() + "'" +
-                ", ativo='" + isAtivo() + "'" +
-                ", perfil='" + getPerfil() + "'" +
-                "}";
-
-    }
-
 }

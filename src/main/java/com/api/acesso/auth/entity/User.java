@@ -29,12 +29,10 @@ public class User implements UserDetails {
 
     private Boolean ativo;
 
-    /**
-     *
-     */
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name="role_id", nullable=false)
     @Fetch(FetchMode.JOIN)
-    private List<Role> roles;
+    private Role roles;
 
     public Long getId() {
         return id;
@@ -76,14 +74,6 @@ public class User implements UserDetails {
         this.senha = senha;
     }
 
-    public List<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(List<Role> roles) {
-        this.roles = roles;
-    }
-
     public Boolean getAtivo() {
         return ativo;
     }
@@ -92,9 +82,21 @@ public class User implements UserDetails {
         this.ativo = ativo;
     }
 
+    public Boolean isAtivo() {
+        return this.ativo;
+    }
+
+    public Role getRoles() {
+        return this.roles;
+    }
+
+    public void setRoles(Role roles) {
+        this.roles = roles;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles;
+        return List.of(getRoles());
     }
 
     @Override

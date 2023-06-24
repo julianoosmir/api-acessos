@@ -41,7 +41,8 @@ public class UserRepositoryTest {
 
     @Test
     public void find(){
-        String name = this.repository.findRoleByUserId(2l);
-        Assertions.assertEquals(name,"jorge");
+        User user = this.repository.findByUsername("julianoosmir");
+        Assertions.assertEquals(user.getNome(),"juliano");
+        Assertions.assertEquals(user.getUsername(),"julianoosmir");
     }
 }

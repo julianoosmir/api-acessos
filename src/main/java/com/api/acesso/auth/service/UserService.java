@@ -59,7 +59,7 @@ public class UserService implements UserDetailsService {
         userdto.setSenha(this.enconderPassword(userdto.getSenha()));
         User user = this.mapper.map(userdto, User.class);
         Role role = roleService.findById(userdto.getPerfil());
-        user.setRoles(Arrays.asList(role));
+        user.setRoles(role);
         return repository.save(user);
     }
 
@@ -75,7 +75,7 @@ public class UserService implements UserDetailsService {
         List<UserResponseDto> userdtos = new ArrayList<>();
         this.findAll().forEach(user -> {
             UserResponseDto dto = new UserResponseDto(user.getId(), user.getNome(), user.getUsername(),
-                    this.getNamesRoles(user.getRoles()));
+                    user.getRoles().getName());
             userdtos.add(dto);
         });
         return userdtos;
@@ -96,8 +96,9 @@ public class UserService implements UserDetailsService {
         return repository.findByUsername(username);
     }
 
-    private String getRole(Long id) {
-        return this.repository.findRoleByUserId(id);
+    private String getRoleName(Long id) {
+        Role role = findById(id).getRoles();
+        return role.getName();
     }
 
     public ResponseEntity<?> signin(JwtRequest authenticationRequest) {
@@ -109,7 +110,7 @@ public class UserService implements UserDetailsService {
 
             final String token = jwtTokenUtil.generateToken(userDetails);
 
-            final AuthDto authDto = new AuthDto(getRole(userDetails.getId()), true, token);
+           final AuthDto authDto = new AuthDto(getRoleName(userDetails.getId()), true, token);
 
             return ResponseEntity.ok(authDto);
         } catch (Exception e) {
