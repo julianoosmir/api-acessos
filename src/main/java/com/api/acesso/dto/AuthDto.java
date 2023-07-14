@@ -1,5 +1,6 @@
 package com.api.acesso.dto;
 
+
 import java.util.Objects;
 
 public class AuthDto {

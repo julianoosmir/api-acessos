@@ -1,5 +1,10 @@
 package com.api.acesso.config.jwt;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
 public class JwtRequest {
 
     private String username;

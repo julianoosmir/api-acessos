@@ -1,6 +1,7 @@
 package com.api.acesso.auth.service;
 
 import com.api.acesso.auth.entity.User;
+import com.api.acesso.dto.UserDto;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,6 +15,8 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
+
+import static org.mockito.Mockito.when;
 
 @DisplayName("Tests for user service")
 @ExtendWith(SpringExtension.class)
@@ -34,5 +37,17 @@ public class UserServiceTest {
    public void getAll(){
       List<User> users = this.userService.findAll();
       Assertions.assertEquals(users.size(),1);
+   }
+   @Test
+   public void salvar(){
+      User user = new User();
+      UserDto dto = new UserDto();
+      dto.setSenha("123456");
+      dto.setUsername("lulu");
+      dto.setPerfil(1L);
+      dto.setEmail("teste@teste");
+      dto.setNome("teste");
+      User userSalvo = userService.salvar(dto);
+      Assertions.assertEquals(userSalvo.getNome(),"teste");
    }
 }
