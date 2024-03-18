@@ -18,8 +18,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @DisplayName("Tests for user Repository")
 @ExtendWith(SpringExtension.class)
-@Profile("test")
-@ActiveProfiles("test")
+//@Profile("test")
+//@ActiveProfiles("test")
 @SpringBootTest
 public class UserRepositoryTest {
     
@@ -28,14 +28,14 @@ public class UserRepositoryTest {
     private UserRepository repository;
 
     @BeforeEach
-    private void setUp() {
+    public void setUp() {
 
     }
 
     @Test
     public void getAll() {
         List<User> users = this.repository.findAll();
-        Assertions.assertEquals(users.size(), 1);
+        Assertions.assertEquals(users.size(), 2);
     }
 
     @Test

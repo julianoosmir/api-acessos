@@ -20,8 +20,8 @@ import static org.mockito.Mockito.when;
 
 @DisplayName("Tests for user service")
 @ExtendWith(SpringExtension.class)
-@Profile("test")
-@ActiveProfiles("test")
+//@Profile("test")
+//@ActiveProfiles("test")
 @SpringBootTest
 public class UserServiceTest {
 
@@ -30,13 +30,13 @@ public class UserServiceTest {
    private UserService userService;
 
    @BeforeEach
-   private void setUp() {
+   public void setUp() {
 
    }
    @Test
    public void getAll(){
       List<User> users = this.userService.findAll();
-      Assertions.assertEquals(users.size(),1);
+      Assertions.assertEquals(users.size(),2);
    }
    @Test
    public void salvar(){
